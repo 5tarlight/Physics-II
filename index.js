@@ -50,6 +50,29 @@ const R = {
   size() {
     return this.objs.length;
   },
+  get(id) {
+    return this.objs.filter((o) => o.id === id)[0];
+  },
+  move(id, x = 0, y = 0) {
+    const item = R.get(id);
+
+    if (!item) {
+      return;
+    }
+
+    const index = this.objs.findIndex((o) => o.id === id);
+
+    if (index === -1) return;
+
+    this.objs[index] = new Item(
+      item.id,
+      item.x + x,
+      item.y + y,
+      item.w,
+      item.h,
+      item.color
+    );
+  },
 
   render() {
     this.objs.forEach((o) => o.show());
@@ -57,9 +80,10 @@ const R = {
 };
 
 const loop = () => {
+  R.move(0, 1, 0);
+
   clear();
   R.render();
-
   requestAnimationFrame(loop);
 };
 
@@ -69,8 +93,12 @@ const setup = () => {
 
   R.add(new Item(0, 50, 600, 100));
 
+  console.dir(R.objs);
   console.log("Loading complete!");
-  requestAnimationFrame(loop);
+
+  (() => {
+    requestAnimationFrame(loop);
+  })();
 };
 
 window.onload = setup;
