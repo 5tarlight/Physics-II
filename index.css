@@ -1,0 +1,62 @@
+html,
+body {
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  min-height: 100vh;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  vertical-align: baseline;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+body {
+  padding: 1rem;
+  background-color: #f8f8f8;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+canvas {
+  width: 1024px;
+  height: 768px;
+  border: 1px solid black;
+  margin-top: 1rem;
+  background-color: white;
+}
+
+.spec {
+  margin-top: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.var-container {
+  width: 512px;
+  display: flex;
+}
+
+.key {
+  width: 30%;
+}
+
+.value {
+  width: 70%;
+}
