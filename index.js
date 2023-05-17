@@ -2,6 +2,10 @@ let canvas;
 let ctx;
 let pushBtn;
 let start = false;
+let predH, predW;
+let curH, curW;
+let offsetX, offsetY;
+const g = 0.098;
 
 const BLACK = "rgb(0, 0, 0)";
 const RED = "rgb(200, 0, 0)";
@@ -102,6 +106,13 @@ const addForce = () => {
   start = true;
   const f = new Force(0, 10, (-Math.PI * 1.5) / 4);
   forces.push(f);
+
+  const fy = f.power * Math.sin(f.theta) - g;
+  const fx = f.power * Math.cos(f.theta);
+  const v = Math.sqrt(fy * fy + fx * fx);
+  predH.innerText =
+    (v * v * Math.sin(f.theta) * Math.sin(f.theta)) / 2 / g + " m";
+  predW.innerText = (v * v * -Math.sin(2 * f.theta)) / g + " m";
 };
 
 let velX = 0;
@@ -124,7 +135,8 @@ const loop = () => {
   calcAccel();
   R.move(0, velX, velY);
 
-  // console.log(R.objs[0]);
+  curW.innerText = `${R.get(0).x - offsetX} m`;
+  curH.innerText = `${canvas.height - R.get(0).y - offsetY} m`;
 
   clear();
   R.render();
@@ -138,7 +150,15 @@ const setup = () => {
 
   pushBtn.addEventListener("click", addForce);
 
+  predH = document.getElementById("pred-height");
+  predW = document.getElementById("pred-width");
+  curH = document.getElementById("cur-height");
+  curW = document.getElementById("cur-width");
+
   R.add(new Item(0, 1, 50, 600, 100));
+
+  offsetX = R.get(0).x;
+  offsetY = canvas.height - R.get(0).y;
 
   console.dir(R.objs);
   console.log("Loading complete!");
